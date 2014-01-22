@@ -24,7 +24,7 @@ sinatra app, by starting the app like this
 
 and visit [localhost:4567](http://localhost:4567), after login via Readability
 is successful it will display the needed token and secret to be added to
-```.env```
+```.env``` file for the importer to use.
 
     TOKEN=your-oauth-token
     SECRET=you-oauth-secret
