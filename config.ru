@@ -1,9 +1,13 @@
-$LOAD_PATH.unshift(File.dirname(__FILE__))
+$LOAD_PATH.unshift(File.expand_path "../lib", __FILE__)
+$LOAD_PATH.unshift(File.expand_path "../", __FILE__)
 
-require "dotenv"
-Dotenv.load
+ENV["RACK_ENV"] ||= "development"
 
-require "bundler/setup"
-require "auth_app"
+# load the environment for development and testing
+if ENV["RACK_ENV"] != "production"
+  require "dotenv"
+  Dotenv.load
+end
 
-run ReadablityAuth
+require "app"
+run Sinatra::Application
