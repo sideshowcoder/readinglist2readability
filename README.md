@@ -17,25 +17,11 @@ the first 3 entries
     CONSUMER_SECRET=your-reader-api-secret
     PARSER_TOKEN=your-parser-token
 
-Now authorize with Readability Oauth to get a token and secret via the provided
-sinatra app, by starting the app like this
+with this in place you can run the app via
 
-    $ bundle exec rackup -p 4567
+    $ bundle exec rackup -p 4567 -s thin
 
-and visit [localhost:4567](http://localhost:4567), after login via Readability
-is successful it will display the needed token and secret to be added to
-```.env``` file for the importer to use.
-
-    TOKEN=your-oauth-token
-    SECRET=you-oauth-secret
-
-## Run
-Running the importer will dump a list of all your Safari Bookmarks and Reading
-list entires and add each of them to Readability. This can take a while!
-
-    $ ruby importer.rb
-
-Enjoy!
+and visit [localhost:4567](http://localhost:4567), and follow the instructions
 
 ## License
 MIT
