@@ -1,0 +1,19 @@
+<h1>Safari Readinglist to Readability importer</h1>
+
+<p>
+  Import your Safari Readinglist into
+  <a href="http://readability.com/">Readability</a>
+</p>
+
+<h2>Steps</h2>
+<ul>
+  <li><a href="<%= base_url %>/auth/readability">Login with Readability</a></li>
+  <li>Create an export of your Readinglist via the Terminal by running <br/>
+    <pre>
+      /usr/bin/plutil -convert xml1 -o - ~/Library/Safari/Bookmarks.plist > ~/Desktop/bookmarks.xml
+    </pre>
+  </li>
+  <li>Upload the export to have it imported</li>
+</ul>
+
+

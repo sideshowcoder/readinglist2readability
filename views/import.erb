@@ -1,0 +1,11 @@
+<h1>Upload a XML Bookmark list</h1>
+<p>
+  You can generate the list by running
+  <pre>/usr/bin/plutil -convert xml1 -o - ~/Library/Safari/Bookmarks.plist > ~/Desktop/bookmarks.xml</pre>
+  in your terminal and then upload the file.
+</p>
+
+<form action="/import" enctype="multipart/form-data" method="post">
+  <input name="file" type="file" />
+  <input type="submit" value="Upload" />
+</form>

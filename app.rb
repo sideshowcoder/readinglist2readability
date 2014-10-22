@@ -1,7 +1,22 @@
 require "sinatra"
 require "omniauth"
 require "omniauth-readability"
-require "helpers/authorization_helper"
+require "bookmark_list"
+require "readability_importer"
+
+helpers do
+  def base_url
+    "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
+  end
+
+  def authorized?
+    !session[:credentials].nil?
+  end
+end
+
+before "/import" do
+  halt(401, "Not authorized") unless authorized?
+end
 
 configure do
   set :inline_templates, true
@@ -14,28 +29,36 @@ use OmniAuth::Builder do
 end
 
 get "/" do
-  if session[:credentials].nil?
-    erb :root
+  if !authorized?
+    erb :index
   else
     redirect "/import"
   end
+end
+
+get "/signout" do
+  session.clear
+  redirect "/"
 end
 
 get "/import" do
   erb :import
 end
 
+post "/import"  do
+  raw_bookmarks = params[:file][:tempfile].read
+  bookmark_list = BookmarkList.create_from_xml_export(raw_bookmarks)
+  importer = ReadabilityImporter.new(session[:credentials], bookmark_list)
+  @result = importer.import
+  erb :report
+end
+
+
 get "/auth/:provider/callback" do
   # The result will look something like this:
   # sessions[:credentials] = { "token": "a-token", "secret": "the-secret" }
   session[:credentials] = request.env['omniauth.auth']["credentials"]
   redirect "/import"
-end
-
-post "/import" do
-  #readbility= ReadabilityBookmarks.new(token: ENV["TOKEN"], secret: ENV["SECRET"])
-  #bookmarks = SafariBookmarks.new.bookmarks
-  #readbility.import_bulk bookmarks
 end
 
 get "/auth/failure" do
@@ -46,38 +69,3 @@ get "/auth/:provider/deauthorized" do
   erb :auth_deauthorized
 end
 
-
-__END__
-
-@@ layout
-<html>
-  <head>
-    <link href='http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css' rel='stylesheet' />
-  </head>
-  <body>
-    <div class='container'>
-      <div class='content'>
-        <%= yield %>
-      </div>
-    </div>
-  </body>
-</html>
-
-@@ auth_failure
-<h1>Authentication Failed</h1>
-<h3>message:<h3> <pre>#{params}</pre>
-
-@@ auth_deauthorized
-<h1>Application deauthorized</h1>
-<h3>message: "#{params[:provider]} has deauthorized this app.</h3>
-
-@@ root
-<a href='#{base_url}/auth/readability'>Login with Readability</a>
-
-@@ import
-<h1>Upload a XML Bookmark list</h1>
-<p>
-  You can generate the list by running
-  <pre>/usr/bin/plutil -convert xml1 -o - ~/Library/Safari/Bookmarks.plist > ~/Desktop/bookmarks.xml</pre>
-  in your terminal
-</p>

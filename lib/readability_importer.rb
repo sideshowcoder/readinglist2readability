@@ -11,7 +11,21 @@ class ReadabilityImporter
   end
 
   def import
-    @bookmark_list.each { |bookmark| api.bookmark url: bookmark }
+    bookmark_infos = @bookmark_list.map do |bookmark|
+      api.bookmark url: bookmark
+    end
+
+    bookmark_infos.inject({ success: 0, conflicts: 0, errors: 0 }) { |acc, info|
+      case info[:status]
+      when "202"
+        acc[:success] += 1
+      when "409"
+        acc[:conflicts] += 1
+      else
+        acc[:errors] += 1
+      end
+      acc
+    }
   end
 
   private

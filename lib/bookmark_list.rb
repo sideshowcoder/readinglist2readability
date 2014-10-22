@@ -10,11 +10,11 @@ class BookmarkList
     @list = list
   end
 
-  def self.create_from_xml_export xml
+  def self.create_from_xml_export raw_xml
     list = []
-    raw_bookmarks.scan(/<string>(http(s)?:\/\/.*)<\/string>/) do |m|
+    raw_xml.scan(/<string>(http(s)?:\/\/.*)<\/string>/) do |m|
       list << m[0] unless m[0].include? "icloud"
     end
-    new bookmarks
+    new list
   end
 end
