@@ -9,7 +9,7 @@ end
 namespace :development do
   desc "spin up a development server"
   task :server do
-    sh "bundle exec rackup --server thin --env development --port 3000"
+    sh "bundle exec shotgun --server thin --env development --port 3000"
   end
 
   desc "run a console with the application loaded"

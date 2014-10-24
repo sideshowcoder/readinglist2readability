@@ -28,7 +28,7 @@ use OmniAuth::Builder do
   provider :readability, ENV["CONSUMER_KEY"], ENV["CONSUMER_SECRET"]
 end
 
-get "/" do
+get "/?" do
   if !authorized?
     erb :index
   else
@@ -46,7 +46,7 @@ get "/import" do
 end
 
 post "/import"  do
-  raw_bookmarks = params[:file][:tempfile].read
+  raw_bookmarks = params[:file][:tempfile].read.force_encoding("UTF-8")
   bookmark_list = BookmarkList.create_from_xml_export(raw_bookmarks)
   importer = ReadabilityImporter.new(session[:credentials], bookmark_list)
   @result = importer.import
