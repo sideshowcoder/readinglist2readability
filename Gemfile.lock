@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:29decibel/readit.git
+  remote: https://github.com/29decibel/readit.git
   revision: f352941719e54cd05c241e56571fd160ab456aa4
   ref: f352941719e54cd05c241e56571fd160ab456aa4
   specs:
