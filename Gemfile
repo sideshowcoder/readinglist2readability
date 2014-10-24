@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "readit", git: "git@github.com:29decibel/readit.git"
+gem "readit", git: "git@github.com:29decibel/readit.git", ref: "f352941719e54cd05c241e56571fd160ab456aa4"
 
 gem "sinatra"
 gem "omniauth"

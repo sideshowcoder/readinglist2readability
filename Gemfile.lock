@@ -1,6 +1,7 @@
 GIT
   remote: git@github.com:29decibel/readit.git
   revision: f352941719e54cd05c241e56571fd160ab456aa4
+  ref: f352941719e54cd05c241e56571fd160ab456aa4
   specs:
     readit (0.1.0)
       hashie
