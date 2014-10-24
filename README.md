@@ -2,13 +2,17 @@
 
 Import all your Safari Bookmarks including the Reading List into Readability.
 
+[Find it hosted on Heroku](http://readinglist2readability.herokuapp.com) for all
+your importing needs.
+
 ## Install
 
     $ git clone https://github.com/sideshowcoder/readinglist2readability
     $ cd readinglist2readability && bundle install
     $ cp sample.env .env
 
-## Setup
+## Local setup
+
 On Readability create the needed [API
 Keys](https://www.readability.com/settings/account) and fill into ```.env``` as
 the first 3 entries
@@ -19,9 +23,9 @@ the first 3 entries
 
 with this in place you can run the app via
 
-    $ bundle exec rackup -p 4567 -s thin
+    $ rake development:server
 
-and visit [localhost:4567](http://localhost:4567), and follow the instructions
+and visit [localhost:3000](http://localhost:3000), and follow the instructions
 
 ## License
 MIT
