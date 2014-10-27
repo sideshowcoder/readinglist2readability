@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem "readit", git: "https://github.com/29decibel/readit.git", ref: "f352941719e54cd05c241e56571fd160ab456aa4"
+gem "dotenv-heroku", git: "https://github.com/sideshowcoder/dotenv-heroku.git"
 
 gem "sinatra"
 gem "omniauth"
