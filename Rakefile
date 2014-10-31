@@ -1,7 +1,11 @@
 require "rake/testtask"
-require "dotenv/tasks"
-require "dotenv-heroku/tasks"
-require "mkmf"
+
+if ENV["RACK_ENV"] == "development"
+  # dotenv is only used in development
+  require "dotenv/tasks"
+  require "dotenv-heroku/tasks"
+end
+
 
 Rake::TestTask.new do |t|
   t.libs << 'test'
