@@ -7,11 +7,12 @@ gem "sinatra"
 gem "omniauth"
 gem "omniauth-readability"
 
-gem "thin"
+gem "unicorn"
 gem "rake"
 gem "plist"
 
 group :development do
+  gem "foreman"
   gem "rack-test"
   gem "dotenv"
   gem "shotgun"
